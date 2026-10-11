@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:installLocation="auto">
 
+    <!-- Flip phone (Android 7): force the Fossify commons library to build for API 24 -->
+    <uses-sdk tools:overrideLibrary="org.fossify.commons" />
+
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.WRITE_SMS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
