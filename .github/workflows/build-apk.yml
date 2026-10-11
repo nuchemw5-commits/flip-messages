@@ -4,6 +4,9 @@ on:
   push:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -30,3 +33,11 @@ jobs:
         with:
           name: flip-messages-apk
           path: app/build/outputs/apk/foss/debug/*.apk
+      - name: Publish APK as a GitHub Release (downloadable straight on a phone)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cp app/build/outputs/apk/foss/debug/*.apk flip-messages.apk
+          gh release create "flip-${{ github.run_number }}" flip-messages.apk \
+            --title "Flip Messages build ${{ github.run_number }}" \
+            --notes "Debug-signed APK for Android 7 flip phones. Download flip-messages.apk, install it, and set it as the default SMS app."
